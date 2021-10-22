@@ -1,7 +1,21 @@
 const form = document.querySelector("form");
 const taskInput = document.querySelector("#task");
 form.addEventListener("submit", addTask)
-console.log (form, taskInput);
+const tasksList = document.querySelector(".collection")
+tasksList.addEventListener("click", deleteTask)
+
+
+// funktsioon ühe task'i kustutamiseks  --- ei tööta veel :/
+function deleteTask(event){
+    if(e.target.textContent == "X"){
+        if (confirm("Do you want to delete this task?")) {
+            e.target.parentElement.remove();
+        }
+    }
+    //kus täpselt click toimus
+    console.log(e.target.textContent)
+}
+
 
 function addTask (event) {
     //input value
