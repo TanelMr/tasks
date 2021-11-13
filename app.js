@@ -1,19 +1,35 @@
 const form = document.querySelector("form");
 const taskInput = document.querySelector("#task");
-form.addEventListener("submit", addTask)
-const tasksList = document.querySelector(".collection")
-tasksList.addEventListener("click", deleteTask)
+const tasksList = document.querySelector(".collection");
+const DelTasksBtn = document.querySelector("#deleteAllTasks");
+
+tasksList.addEventListener("click", deleteTask);
+form.addEventListener("submit", addTask);
+DelTasksBtn.addEventListener("click", deleteAllTasks);
 
 
-// funktsioon ühe task'i kustutamiseks  --- ei tööta veel :/
+
+
+// function for deleting single tasks
 function deleteTask(event){
-    if(e.target.textContent == "X"){
+    if(event.target.textContent == "X"){
+        //ask for confirmation
         if (confirm("Do you want to delete this task?")) {
-            e.target.parentElement.remove();
+            event.target.parentElement.remove();
         }
     }
-    //kus täpselt click toimus
-    console.log(e.target.textContent)
+}
+
+// function for deleting all tasks
+function deleteAllTasks(){
+        //ask for confirmation
+        if (confirm("Do you want to delete all tasks?")) {
+       //slower version -- tasksList.innerHTML = "";
+            while(tasksList.firstChild){
+                tasksList.removeChild(tasksList.firstChild);
+            }
+        }
+
 }
 
 
@@ -45,6 +61,6 @@ function addTask (event) {
     ul.appendChild(li);
     // clear input
     taskInput.value = "";
-
-    event.preventDefault();
+    //preventdefault
+    event.preventDefault()
 }
