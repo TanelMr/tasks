@@ -59,8 +59,22 @@ function addTask (event) {
     const ul = document.querySelector(".collection");
     // add <li> to <ul>
     ul.appendChild(li);
+    //save task function
+    addTaskToLocalStorage(task);
     // clear input
     taskInput.value = "";
     //preventdefault
     event.preventDefault()
+}
+
+function addTaskToLocalStorage(task){
+    let tasks;
+    if(localStorage.getItem("tasks") === null){
+        tasks = [];
+    }
+    else {
+        tasks = JSON.parse(localStorage.getItem("tasks"));
+    }
+    tasks.push(task);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
 }
