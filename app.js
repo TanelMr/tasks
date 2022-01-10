@@ -12,10 +12,13 @@ DelTasksBtn.addEventListener("click", deleteAllTasks);
 
 // function for deleting single tasks
 function deleteTask(event){
-    if(event.target.textContent == "X"){
+    let task;
+    if (event.target.textContent == "X") {
         //ask for confirmation
         if (confirm("Do you want to delete this task?")) {
             event.target.parentElement.remove();
+            task = event.target.parentElement.firstChild.textContent;
+            deleteTaskFromLocalStorage(task);
         }
     }
 }
@@ -67,8 +70,10 @@ function addTask (event) {
     event.preventDefault()
 }
 
+//function for adding tasks to localstorage
 function addTaskToLocalStorage(task){
     let tasks;
+    // check if an array has been created
     if(localStorage.getItem("tasks") === null){
         tasks = [];
     }
@@ -76,5 +81,24 @@ function addTaskToLocalStorage(task){
         tasks = JSON.parse(localStorage.getItem("tasks"));
     }
     tasks.push(task);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+//function for deleting tasks from localstorage
+function deleteTaskFromLocalStorage(task){
+    let tasks;
+    // check if an array has been created
+    if(localStorage.getItem("tasks") === null){
+        tasks = [];
+    }
+    else {
+        tasks = JSON.parse(localStorage.getItem("tasks"));
+    }
+    //loop through array and match element
+    tasks.forEach(function (tasksElement, index){
+        if(tasksElement === task) {
+            tasks.splice(index, 1);
+        }
+    });
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
