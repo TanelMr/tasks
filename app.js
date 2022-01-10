@@ -9,7 +9,7 @@ DelTasksBtn.addEventListener("click", deleteAllTasks);
 document.addEventListener("DOMContentLoaded", getTasksFromLocalStorage);
 
 // function for getting tasks from localstorage on page reload
-function getTasksFromLocalStorage (task){
+function getTasksFromLocalStorage (){
     let tasks;
     // check if an array has been created
     if(localStorage.getItem("tasks") === null){
