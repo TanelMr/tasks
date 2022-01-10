@@ -6,10 +6,42 @@ const DelTasksBtn = document.querySelector("#deleteAllTasks");
 tasksList.addEventListener("click", deleteTask);
 form.addEventListener("submit", addTask);
 DelTasksBtn.addEventListener("click", deleteAllTasks);
+document.addEventListener("DOMContentLoaded", getTasksFromLocalStorage);
 
-
-
-
+// function for getting tasks from localstorage on page reload
+function getTasksFromLocalStorage (task){
+    let tasks;
+    // check if an array has been created
+    if(localStorage.getItem("tasks") === null){
+        tasks = [];
+    }
+    else {
+        tasks = JSON.parse(localStorage.getItem("tasks"));
+    }
+    tasks.forEach(function (tasksElement){
+        const li = document.createElement("li");
+        // define <li> CSS class
+        li.classname = "collection-item";
+        // create text value for <li>
+        const tekst = document.createTextNode(tasksElement);
+        // add text value to <li>
+        li.appendChild(tekst);
+        //create link element
+        const link = document.createElement("a");
+        //add href
+        link.setAttribute("href", "#");
+        // add CSS to link
+        link.className = "secondary-content";
+        // add "X" text to link
+        link.appendChild(document.createTextNode("X"));
+        // add link to <li>
+        li.appendChild(link);
+        // find <ul> DOM component
+        const ul = document.querySelector(".collection");
+        // add <li> to <ul>
+        ul.appendChild(li);
+        });
+}
 // function for deleting single tasks
 function deleteTask(event){
     let task;
@@ -45,7 +77,6 @@ function addTask (event) {
     li.classname = "collection-item";
     // create text value for <li>
     const tekst = document.createTextNode(task);
-    console.log(tekst)
     // add text value to <li>
     li.appendChild(tekst);
     //create link element
